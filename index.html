@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Data Standards & Interoperability Learning Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">🏥 Health Data Standards & Interoperability</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="overallProgress"></div>
+            </div>
+            <div class="progress-text" id="progressText">0% Complete</div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Module Navigation -->
+        <section class="module-nav">
+            <div class="module-card unlocked" data-module="foundation">
+                <div class="module-icon">📚</div>
+                <div class="module-title">Foundation</div>
+                <div class="module-description">Core concepts and definitions</div>
+                <div class="module-progress">
+                    <span>Always unlocked</span>
+                    <div class="progress-circle" id="foundationProgress">0%</div>
+                </div>
+            </div>
+
+            <div class="module-card locked" data-module="standards">
+                <div class="module-icon">🌍</div>
+                <div class="module-title">Standards Deep Dive</div>
+                <div class="module-description">International standards categories</div>
+                <div class="module-progress">
+                    <span>Complete Foundation first</span>
+                    <div class="progress-circle" id="standardsProgress">🔒</div>
+                </div>
+            </div>
+
+            <div class="module-card locked" data-module="interoperability">
+                <div class="module-icon">🔗</div>
+                <div class="module-title">Interoperability Levels</div>
+                <div class="module-description">Four levels framework</div>
+                <div class="module-progress">
+                    <span>Complete Standards first</span>
+                    <div class="progress-circle" id="interoperabilityProgress">🔒</div>
+                </div>
+            </div>
+
+            <div class="module-card locked" data-module="scenarios">
+                <div class="module-icon">🏥</div>
+                <div class="module-title">Clinical Scenarios</div>
+                <div class="module-description">Real-world case studies</div>
+                <div class="module-progress">
+                    <span>Complete Interoperability first</span>
+                    <div class="progress-circle" id="scenariosProgress">🔒</div>
+                </div>
+            </div>
+
+            <div class="module-card locked" data-module="master">
+                <div class="module-icon">🎯</div>
+                <div class="module-title">Master Challenge</div>
+                <div class="module-description">Comprehensive assessment</div>
+                <div class="module-progress">
+                    <span>Complete all modules first</span>
+                    <div class="progress-circle" id="masterProgress">🔒</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Area -->
+        <section class="content-area">
+            <!-- Foundation Module -->
+            <div class="module-content active" id="foundation-content">
+                <div class="content-header">
+                    <h1 class="content-title">Foundation: Core Concepts</h1>
+                    <p class="content-subtitle">Understanding the fundamental difference between standards and interoperability</p>
+                </div>
+
+                <div class="interactive-element">
+                    <h3>🎯 Learning Objective</h3>
+                    <p>Distinguish standards from interoperability using clear analogies and real-world examples.</p>
+                </div>
+
+                <div class="interactive-element">
+                    <h3>🚨 Opening Hook: Why Can't Hospital Systems Talk?</h3>
+                    <p>Imagine you're a patient who visits Hospital A for a routine checkup, then later needs emergency care at Hospital B. Despite both hospitals having electronic health records, the emergency physician can't access your previous lab results, medication list, or imaging studies. Why?</p>
+                    <button class="quiz-option" onclick="revealAnswer('hook')">Click to reveal the answer</button>
+                    <div id="hook-answer" class="feedback" style="display: none;">
+                        <strong>The Problem:</strong> Different systems use different "languages" (standards) and lack the ability to have meaningful conversations (interoperability). It's like having two people who speak different languages trying to discuss your medical history - they can't understand each other!
+                    </div>
+                </div>
+
+                <div class="interactive-element">
+                    <h3>📖 Core Analogy</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+                        <div style="border: 2px solid var(--primary-blue); padding: 1rem; border-radius: 8px;">
+                            <h4 style="color: var(--primary-blue);">Standards = Language & Grammar Rules</h4>
+                            <p>Just like English has grammar rules, vocabulary, and sentence structure, health data standards define:</p>
+                            <ul>
+                                <li><strong>Structure:</strong> How data is organized</li>
+                                <li><strong>Vocabulary:</strong> What codes represent concepts</li>
+                                <li><strong>Transport:</strong> How data moves between systems</li>
+                                <li><strong>Format:</strong> How data is encoded</li>
+                            </ul>
+                        </div>
+                        <div style="border: 2px solid var(--accent-green); padding: 1rem; border-radius: 8px;">
+                            <h4 style="color: var(--accent-green);">Interoperability = Meaningful Conversation Ability</h4>
+                            <p>Just like two people can have a meaningful conversation when they share a common language, interoperability enables:</p>
+                            <ul>
+                                <li><strong>Technical:</strong> Systems can exchange data</li>
+                                <li><strong>Syntactic:</strong> Systems can parse data structure</li>
+                                <li><strong>Semantic:</strong> Systems understand data meaning</li>
+                                <li><strong>Organizational:</strong> Workflows enable data use</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>🧠 Quick Check Quiz</h3>
+                    <p><strong>Question 1:</strong> A hospital system sends patient data using HL7 v2 format to another hospital. The receiving system can read the message structure but doesn't understand what the lab codes mean. Which level of interoperability is missing?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="technical">Technical Interoperability</div>
+                        <div class="quiz-option" data-answer="syntactic">Syntactic Interoperability</div>
+                        <div class="quiz-option" data-answer="semantic">Semantic Interoperability</div>
+                        <div class="quiz-option" data-answer="organizational">Organizational Interoperability</div>
+                    </div>
+                    <div class="feedback" id="quiz1-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>🧠 Quick Check Quiz</h3>
+                    <p><strong>Question 2:</strong> Which of the following best describes a health data standard?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="capability">The capability of systems to exchange data</div>
+                        <div class="quiz-option" data-answer="rules">Agreed-upon rules for data structure and format</div>
+                        <div class="quiz-option" data-answer="workflow">Clinical workflow processes</div>
+                        <div class="quiz-option" data-answer="software">Specific software applications</div>
+                    </div>
+                    <div class="feedback" id="quiz2-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>🧠 Quick Check Quiz</h3>
+                    <p><strong>Question 3:</strong> True or False: Using the same standard guarantees interoperability between systems.</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="true">True</div>
+                        <div class="quiz-option" data-answer="false">False</div>
+                    </div>
+                    <div class="feedback" id="quiz3-feedback"></div>
+                </div>
+
+                <div style="text-align: center; margin: 2rem 0;">
+                    <button id="completeFoundation" style="background: var(--accent-green); color: white; padding: 1rem 2rem; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; display: none;">
+                        Complete Foundation Module
+                    </button>
+                    <button onclick="window.checkAllCompletions()" style="background: var(--primary-blue); color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; font-size: 0.9rem; cursor: pointer; margin-left: 1rem;">
+                        Check Progress
+                    </button>
+                </div>
+            </div>
+
+            <!-- Standards Deep Dive Module -->
+            <div class="module-content" id="standards-content">
+                <div class="content-header">
+                    <h1 class="content-title">Standards Deep Dive</h1>
+                    <p class="content-subtitle">International health data standards categories and applications</p>
+                </div>
+
+                <div class="interactive-element">
+                    <h3>🎯 Learning Objective</h3>
+                    <p>Categorize and apply major international health data standards in clinical scenarios.</p>
+                </div>
+
+                <!-- Interactive Timeline -->
+                <div class="interactive-element">
+                    <h3>📅 Standards Timeline: Evolution of Health Data Standards</h3>
+                    <div class="timeline-container">
+                        <div class="timeline-item" data-year="1985">
+                            <div class="timeline-marker">1985</div>
+                            <div class="timeline-content">
+                                <h4>DICOM</h4>
+                                <p>Medical imaging universal standard established</p>
+                                <button class="timeline-detail-btn" onclick="StandardsModule.showTimelineDetail('dicom')">Learn More</button>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-year="1987">
+                            <div class="timeline-marker">1987</div>
+                            <div class="timeline-content">
+                                <h4>HL7 v2.x</h4>
+                                <p>First widely adopted messaging standard</p>
+                                <button class="timeline-detail-btn" onclick="StandardsModule.showTimelineDetail('hl7v2')">Learn More</button>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-year="2005">
+                            <div class="timeline-marker">2005</div>
+                            <div class="timeline-content">
+                                <h4>HL7 CDA/C-CDA</h4>
+                                <p>Continuity of Care Document standard</p>
+                                <button class="timeline-detail-btn" onclick="StandardsModule.showTimelineDetail('cda')">Learn More</button>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-year="2014">
+                            <div class="timeline-marker">2014</div>
+                            <div class="timeline-content">
+                                <h4>HL7 FHIR</h4>
+                                <p>Modern web-friendly standard launched</p>
+                                <button class="timeline-detail-btn" onclick="StandardsModule.showTimelineDetail('fhir')">Learn More</button>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-year="2022">
+                            <div class="timeline-marker">2022</div>
+                            <div class="timeline-content">
+                                <h4>ICD-11</h4>
+                                <p>WHO releases digital-native classification</p>
+                                <button class="timeline-detail-btn" onclick="StandardsModule.showTimelineDetail('icd11')">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Standards Categories -->
+                <div class="interactive-element">
+                    <h3>📋 Standards Categories</h3>
+                    <div class="standards-grid">
+                        <div class="standard-category" data-category="messaging">
+                            <h4>📨 Messaging Standards</h4>
+                            <p>How data is transmitted between systems</p>
+                            <button onclick="StandardsModule.showStandardDetails('messaging')">Explore</button>
+                        </div>
+                        <div class="standard-category" data-category="terminology">
+                            <h4>📚 Terminology Standards</h4>
+                            <p>Vocabulary and coding systems</p>
+                            <button onclick="StandardsModule.showStandardDetails('terminology')">Explore</button>
+                        </div>
+                        <div class="standard-category" data-category="imaging">
+                            <h4>🖼️ Imaging Standards</h4>
+                            <p>Medical imaging and metadata</p>
+                            <button onclick="StandardsModule.showStandardDetails('imaging')">Explore</button>
+                        </div>
+                        <div class="standard-category" data-category="transport">
+                            <h4>🔒 Transport & Security</h4>
+                            <p>Data exchange protocols and security</p>
+                            <button onclick="StandardsModule.showStandardDetails('transport')">Explore</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Code Examples -->
+                <div class="interactive-element">
+                    <h3>💻 Interactive Code Explorer</h3>
+                    <p>Click on different standards to see real examples:</p>
+                    <div class="code-selector">
+                        <button class="code-btn active" onclick="StandardsModule.showCodeExample('hl7v2')">HL7 v2</button>
+                        <button class="code-btn" onclick="StandardsModule.showCodeExample('fhir')">FHIR</button>
+                        <button class="code-btn" onclick="StandardsModule.showCodeExample('snomed')">SNOMED-CT</button>
+                        <button class="code-btn" onclick="StandardsModule.showCodeExample('loinc')">LOINC</button>
+                    </div>
+                    <div class="code-example" id="codeExample">
+                        <h4>HL7 v2 Message Example</h4>
+                        <pre><code>MSH|^~\&|SendingApp|SendingFacility|ReceivingApp|ReceivingFacility|20240101120000||ADT^A01^ADT_A01|12345|P|2.7
+EVN||20240101120000
+PID|1||123456789^^^MRN^MR||SMITH^JOHN^MIDDLE||19900101|M|||123 MAIN ST^^CITY^ST^12345||555-1234|||S||123456789
+PV1|1|I|ICU^001^01||||1234567890^DOCTOR^JANE|||||||||1|||||||||||||||||||||||||20240101120000</code></pre>
+                        <div class="code-explanation">
+                            <h5>Message Breakdown:</h5>
+                            <ul>
+                                <li><strong>MSH:</strong> Message header with sending/receiving information</li>
+                                <li><strong>EVN:</strong> Event type (patient admission)</li>
+                                <li><strong>PID:</strong> Patient identification and demographics</li>
+                                <li><strong>PV1:</strong> Patient visit information</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Global Usage Map -->
+                <div class="interactive-element">
+                    <h3>🌍 Global Standards Adoption</h3>
+                    <div class="usage-map">
+                        <div class="region" data-region="north-america">
+                            <h4>🇺🇸 North America</h4>
+                            <div class="adoption-stats">
+                                <div class="stat">
+                                    <span class="stat-label">HL7 v2:</span>
+                                    <span class="stat-value">95%</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">FHIR:</span>
+                                    <span class="stat-value">71%</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">DICOM:</span>
+                                    <span class="stat-value">98%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="region" data-region="europe">
+                            <h4>🇪🇺 Europe</h4>
+                            <div class="adoption-stats">
+                                <div class="stat">
+                                    <span class="stat-label">HL7 v2:</span>
+                                    <span class="stat-value">78%</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">FHIR:</span>
+                                    <span class="stat-value">65%</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">SNOMED-CT:</span>
+                                    <span class="stat-value">85%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="region" data-region="asia-pacific">
+                            <h4>🌏 Asia-Pacific</h4>
+                            <div class="adoption-stats">
+                                <div class="stat">
+                                    <span class="stat-label">HL7 v2:</span>
+                                    <span class="stat-value">82%</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">FHIR:</span>
+                                    <span class="stat-value">58%</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">ICD-10:</span>
+                                    <span class="stat-value">92%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Standards Quiz -->
+                <div class="quiz-question">
+                    <h3>🧠 Standards Knowledge Check</h3>
+                    <p><strong>Question 1:</strong> Which standard would be most appropriate for exchanging laboratory results between a hospital and a reference lab?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="dicom">DICOM</div>
+                        <div class="quiz-option" data-answer="hl7v2">HL7 v2</div>
+                        <div class="quiz-option" data-answer="snomed">SNOMED-CT</div>
+                        <div class="quiz-option" data-answer="loinc">LOINC</div>
+                    </div>
+                    <div class="feedback" id="standards-quiz1-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>🧠 Standards Knowledge Check</h3>
+                    <p><strong>Question 2:</strong> What is the main advantage of FHIR over HL7 v2?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="simpler">Simpler message structure</div>
+                        <div class="quiz-option" data-answer="web-friendly">Web-friendly and mobile-ready</div>
+                        <div class="quiz-option" data-answer="older">More mature and established</div>
+                        <div class="quiz-option" data-answer="cheaper">Lower implementation cost</div>
+                    </div>
+                    <div class="feedback" id="standards-quiz2-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>🧠 Standards Knowledge Check</h3>
+                    <p><strong>Question 3:</strong> Which terminology standard contains over 350,000 clinical concepts?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="loinc">LOINC</div>
+                        <div class="quiz-option" data-answer="snomed">SNOMED-CT</div>
+                        <div class="quiz-option" data-answer="icd10">ICD-10</div>
+                        <div class="quiz-option" data-answer="rxnorm">RxNorm</div>
+                    </div>
+                    <div class="feedback" id="standards-quiz3-feedback"></div>
+                </div>
+
+                <div style="text-align: center; margin: 2rem 0;">
+                    <button id="completeStandards" style="background: var(--accent-green); color: white; padding: 1rem 2rem; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; display: none;">
+                        Complete Standards Module
+                    </button>
+                </div>
+            </div>
+
+            <!-- Interoperability Levels Module -->
+            <div class="module-content" id="interoperability-content">
+                <div class="content-header">
+                    <h1 class="content-title">Interoperability Levels</h1>
+                    <p class="content-subtitle">Four-level interoperability framework</p>
+                </div>
+
+                <div class="interactive-element">
+                    <h3>🎯 Learning Objective</h3>
+                    <p>Apply the four-level interoperability framework to clinical scenarios and understand what each level enables.</p>
+                </div>
+
+                <!-- Four Levels Framework -->
+                <div class="interactive-element">
+                    <h3>📊 The Four Levels of Interoperability</h3>
+                    <div class="levels-container">
+                        <div class="level-card level-1">
+                            <div class="level-number">1</div>
+                            <div class="level-title">Foundational</div>
+                            <div class="level-description">Basic connectivity - data can be transmitted</div>
+                            <div class="level-example">
+                                <strong>Example:</strong> Sending a PDF lab report via secure email
+                            </div>
+                            <div class="level-limitation">
+                                <strong>Clinical Limitation:</strong> Receiving system can't extract discrete values
+                            </div>
+                        </div>
+
+                        <div class="level-card level-2">
+                            <div class="level-number">2</div>
+                            <div class="level-title">Structural</div>
+                            <div class="level-description">Data can be parsed into fields</div>
+                            <div class="level-example">
+                                <strong>Example:</strong> HL7 v2 message with defined segments for patient demographics
+                            </div>
+                            <div class="level-limitation">
+                                <strong>Clinical Limitation:</strong> Field meanings may vary between implementations
+                            </div>
+                        </div>
+
+                        <div class="level-card level-3">
+                            <div class="level-number">3</div>
+                            <div class="level-title">Semantic</div>
+                            <div class="level-description">Shared understanding of meaning</div>
+                            <div class="level-example">
+                                <strong>Example:</strong> Both systems recognize LOINC code 2160-0 as serum creatinine
+                            </div>
+                            <div class="level-benefit">
+                                <strong>Clinical Benefit:</strong> Automated clinical decision support becomes possible
+                            </div>
+                        </div>
+
+                        <div class="level-card level-4">
+                            <div class="level-number">4</div>
+                            <div class="level-title">Organizational</div>
+                            <div class="level-description">Full workflow integration</div>
+                            <div class="level-example">
+                                <strong>Example:</strong> Prior authorization automatically processed between payer and provider
+                            </div>
+                            <div class="level-benefit">
+                                <strong>Clinical Benefit:</strong> Reduced administrative burden, faster patient care
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interoperability Quiz -->
+                <div class="quiz-question">
+                    <h3>🧠 Interoperability Knowledge Check</h3>
+                    <p><strong>Question 1:</strong> A patient's potassium result of "4.2" transfers between two hospitals. Hospital A interprets this as mEq/L while Hospital B assumes mmol/L. Which level of interoperability is lacking?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="semantic">Semantic Interoperability</div>
+                        <div class="quiz-option" data-answer="technical">Technical Interoperability</div>
+                        <div class="quiz-option" data-answer="syntactic">Syntactic Interoperability</div>
+                        <div class="quiz-option" data-answer="organizational">Organizational Interoperability</div>
+                    </div>
+                    <div class="feedback" id="interop-quiz1-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>🧠 Interoperability Knowledge Check</h3>
+                    <p><strong>Question 2:</strong> Which level of interoperability enables automated clinical decision support?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="level3">Level 3 - Semantic</div>
+                        <div class="quiz-option" data-answer="level1">Level 1 - Foundational</div>
+                        <div class="quiz-option" data-answer="level2">Level 2 - Structural</div>
+                        <div class="quiz-option" data-answer="level4">Level 4 - Organizational</div>
+                    </div>
+                    <div class="feedback" id="interop-quiz2-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>🧠 Interoperability Knowledge Check</h3>
+                    <p><strong>Question 3:</strong> Why might a small rural clinic struggle more with implementing Level 3 interoperability compared to Level 2?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="cost">Higher implementation cost</div>
+                        <div class="quiz-option" data-answer="complexity">Requires terminology services infrastructure</div>
+                        <div class="quiz-option" data-answer="training">More staff training needed</div>
+                        <div class="quiz-option" data-answer="all">All of the above</div>
+                    </div>
+                    <div class="feedback" id="interop-quiz3-feedback"></div>
+                </div>
+
+                <div style="text-align: center; margin: 2rem 0;">
+                    <button id="completeInteroperability" style="background: var(--accent-green); color: white; padding: 1rem 2rem; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; display: none;">
+                        Complete Interoperability Module
+                    </button>
+                </div>
+            </div>
+
+            <!-- Clinical Scenarios Module -->
+            <div class="module-content" id="scenarios-content">
+                <div class="content-header">
+                    <h1 class="content-title">Clinical Scenarios</h1>
+                    <p class="content-subtitle">Real-world case studies and decision trees</p>
+                </div>
+
+                <div class="interactive-element">
+                    <h3>🎯 Learning Objective</h3>
+                    <p>Solve real-world interoperability challenges using learned concepts through interactive decision trees.</p>
+                </div>
+
+                <!-- Scenario Selection -->
+                <div class="interactive-element">
+                    <h3>🏥 Choose a Clinical Scenario</h3>
+                    <div class="scenario-container">
+                        <div class="scenario-item" onclick="clinicalScenarios.showScenario('diabetic-ed')">
+                            <h4>🍯 Diabetic Patient in Emergency Department</h4>
+                            <p>A 45-year-old diabetic patient presents to the ED with altered mental status. How do you handle the lack of medical history?</p>
+                        </div>
+                        <div class="scenario-item" onclick="clinicalScenarios.showScenario('medication-reconciliation')">
+                            <h4>💊 Medication Reconciliation</h4>
+                            <p>Patient transferring from ED to primary care clinic needs medication reconciliation. What's your approach?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Scenario Container -->
+                <div id="scenarioContainer" class="scenario-container" style="display: none;"></div>
+
+                <!-- Scenarios Quiz -->
+                <div class="quiz-question">
+                    <h3>🧠 Scenario Analysis</h3>
+                    <p><strong>Question 1:</strong> In the diabetic ED scenario, which approach demonstrates the highest level of interoperability?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="without-standards">Without Standards</div>
+                        <div class="quiz-option" data-answer="standards-no-interop">With Standards but No Interoperability</div>
+                        <div class="quiz-option" data-answer="full-interop">With Full Interoperability</div>
+                        <div class="quiz-option" data-answer="all-same">All approaches are equivalent</div>
+                    </div>
+                    <div class="feedback" id="scenarios-quiz1-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>🧠 Scenario Analysis</h3>
+                    <p><strong>Question 2:</strong> What is the primary benefit of using RxNorm in medication reconciliation?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="cost">Reduces implementation cost</div>
+                        <div class="quiz-option" data-answer="standardization">Provides standardized drug terminology</div>
+                        <div class="quiz-option" data-answer="speed">Increases data transmission speed</div>
+                        <div class="quiz-option" data-answer="security">Improves data security</div>
+                    </div>
+                    <div class="feedback" id="scenarios-quiz2-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>🧠 Scenario Analysis</h3>
+                    <p><strong>Question 3:</strong> Which factors should be considered when implementing interoperability solutions?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="cost-only">Implementation cost only</div>
+                        <div class="quiz-option" data-answer="standards-only">Standards compliance only</div>
+                        <div class="quiz-option" data-answer="both">Both cost and clinical benefits</div>
+                        <div class="quiz-option" data-answer="neither">Neither cost nor benefits matter</div>
+                    </div>
+                    <div class="feedback" id="scenarios-quiz3-feedback"></div>
+                </div>
+
+                <div style="text-align: center; margin: 2rem 0;">
+                    <button id="completeScenarios" style="background: var(--accent-green); color: white; padding: 1rem 2rem; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; display: none;">
+                        Complete Scenarios Module
+                    </button>
+                </div>
+            </div>
+
+            <!-- Master Challenge Module -->
+            <div class="module-content" id="master-content">
+                <div class="content-header">
+                    <h1 class="content-title">Master Challenge</h1>
+                    <p class="content-subtitle">Comprehensive assessment and solution design</p>
+                </div>
+
+                <div class="interactive-element">
+                    <h3>🎯 Learning Objective</h3>
+                    <p>Synthesize all knowledge to design comprehensive interoperability solutions for real-world challenges.</p>
+                </div>
+
+                <!-- Challenge Description -->
+                <div class="interactive-element">
+                    <h3>🏗️ Design Challenge</h3>
+                    <p><strong>Challenge:</strong> Design a minimum viable interoperability solution for medication reconciliation between an ED and primary care clinic. Which standards would you prioritize and why?</p>
+                    
+                    <div class="challenge-requirements">
+                        <h4>Requirements:</h4>
+                        <ul>
+                            <li>Must enable medication data exchange</li>
+                            <li>Should support drug interaction checking</li>
+                            <li>Must be implementable within 6 months</li>
+                            <li>Should minimize duplicate data entry</li>
+                            <li>Must ensure patient safety</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dynamic Challenge Container -->
+                <div id="challengeContainer" class="challenge-container" style="display: none;"></div>
+
+                <!-- Master Quiz Container (Initially Hidden) -->
+                <div id="masterQuizContainer" style="display: none;">
+                    <div class="quiz-question">
+                        <h3>🧠 Master Assessment</h3>
+                        <p><strong>Question 1:</strong> For medication reconciliation, which combination of standards would be most effective?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-answer="hl7v2-only">HL7 v2 only</div>
+                            <div class="quiz-option" data-answer="fhir-rxnorm">FHIR + RxNorm</div>
+                            <div class="quiz-option" data-answer="snomed-only">SNOMED-CT only</div>
+                            <div class="quiz-option" data-answer="all-standards">All available standards</div>
+                        </div>
+                        <div class="feedback" id="master-quiz1-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h3>🧠 Master Assessment</h3>
+                        <p><strong>Question 2:</strong> What is the primary consideration when selecting interoperability standards for a small clinic?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-answer="complexity">Implementation complexity</div>
+                            <div class="quiz-option" data-answer="cost">Total cost of ownership</div>
+                            <div class="quiz-option" data-answer="standards">Standards compliance</div>
+                            <div class="quiz-option" data-answer="all-factors">All of the above</div>
+                        </div>
+                        <div class="feedback" id="master-quiz2-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h3>🧠 Master Assessment</h3>
+                        <p><strong>Question 3:</strong> Which level of interoperability is required for automated drug interaction checking?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-answer="level1">Level 1 - Foundational</div>
+                            <div class="quiz-option" data-answer="level2">Level 2 - Structural</div>
+                            <div class="quiz-option" data-answer="level3">Level 3 - Semantic</div>
+                            <div class="quiz-option" data-answer="level4">Level 4 - Organizational</div>
+                        </div>
+                        <div class="feedback" id="master-quiz3-feedback"></div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin: 2rem 0;">
+                    <button id="showChallenge" onclick="masterChallenge.showChallenge()" style="background: var(--primary-blue); color: white; padding: 1rem 2rem; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer;">
+                        Start Master Challenge
+                    </button>
+                    <button id="completeMaster" style="background: var(--accent-green); color: white; padding: 1rem 2rem; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; display: none;">
+                        Complete Master Challenge
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Achievement Panel -->
+    <div class="achievement-panel" id="achievementPanel">
+        <h3>🏆 Achievements</h3>
+        <div id="achievementsList"></div>
+    </div>
+
+    <!-- Modal/Popup System -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Title</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+            <div class="modal-footer" id="modalFooter" style="display: none;">
+                <button class="modal-button" id="modalButton">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="app.js"></script>
+    <script type="module" src="scenarios.js"></script>
+</body>
+</html>

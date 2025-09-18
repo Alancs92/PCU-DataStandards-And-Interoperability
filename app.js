@@ -256,6 +256,140 @@ class QuizManager {
     }
 }
 
+// Modal Management System
+class ModalManager {
+    constructor() {
+        this.overlay = document.getElementById('modalOverlay');
+        this.title = document.getElementById('modalTitle');
+        this.body = document.getElementById('modalBody');
+        this.footer = document.getElementById('modalFooter');
+        this.closeBtn = document.getElementById('modalClose');
+        this.button = document.getElementById('modalButton');
+        
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        // Close modal when clicking close button
+        this.closeBtn.addEventListener('click', () => this.hide());
+        
+        // Close modal when clicking overlay
+        this.overlay.addEventListener('click', (e) => {
+            if (e.target === this.overlay) {
+                this.hide();
+            }
+        });
+        
+        // Close modal when clicking footer button
+        this.button.addEventListener('click', () => this.hide());
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.overlay.classList.contains('show')) {
+                this.hide();
+            }
+        });
+    }
+
+    show(title, content, showFooter = false, buttonText = 'Close') {
+        this.title.textContent = title;
+        this.body.innerHTML = content;
+        
+        if (showFooter) {
+            this.footer.style.display = 'block';
+            this.button.textContent = buttonText;
+        } else {
+            this.footer.style.display = 'none';
+        }
+        
+        this.overlay.classList.add('show');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    hide() {
+        this.overlay.classList.remove('show');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    // Helper method to create timeline detail content
+    createTimelineContent(detail) {
+        return `
+            <div class="modal-description">${detail.description}</div>
+            <div class="modal-section">
+                <div class="modal-section-title">Key Points</div>
+                <ul class="modal-list">
+                    ${detail.keyPoints.map(point => `<li class="modal-list-item">${point}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
+
+    // Helper method to create standards detail content
+    createStandardsContent(detail) {
+        return `
+            <div class="modal-description">${detail.description}</div>
+            <div class="modal-section">
+                <div class="modal-section-title">Standards</div>
+                <ul class="modal-list">
+                    ${detail.standards.map(std => `<li class="modal-list-item">${std}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
+
+    // Helper method to create code example content
+    createCodeContent(example) {
+        return `
+            <div class="modal-section">
+                <div class="modal-section-title">${example.title}</div>
+                <div class="modal-code">${example.code}</div>
+                <div class="modal-highlight">
+                    <strong>Explanation:</strong><br>
+                    ${example.explanation.split('\n').map(line => 
+                        line.startsWith('•') ? `<div style="margin: 0.3rem 0;">${line}</div>` : line
+                    ).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    // Helper method to create scenario content
+    createScenarioContent(scenario) {
+        return `
+            <div class="modal-description">${scenario.description}</div>
+            <div class="modal-section">
+                <div class="modal-section-title">Pathway Options</div>
+                ${Object.entries(scenario.pathways).map(([key, pathway]) => `
+                    <div class="modal-highlight">
+                        <strong>${pathway.title}</strong><br>
+                        ${pathway.description}
+                        <div class="modal-stats">
+                            ${Object.entries(pathway.metrics).map(([metricKey, value]) => `
+                                <div class="modal-stat">
+                                    <div class="modal-stat-value">${value}</div>
+                                    <div class="modal-stat-label">${this.formatMetricLabel(metricKey)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    formatMetricLabel(key) {
+        const labels = {
+            time: 'Time to Resolution',
+            cost: 'Cost Impact',
+            risk: 'Patient Risk',
+            duplicateTests: 'Duplicate Tests',
+            accuracy: 'Accuracy Rate',
+            errors: 'Potential Errors'
+        };
+        return labels[key] || key;
+    }
+}
+
 // Achievement System
 class AchievementManager {
     constructor(studentProgress) {
@@ -453,8 +587,9 @@ class StandardsModule {
         };
         
         const detail = details[standard];
-        if (detail) {
-            alert(`${detail.title}\n\n${detail.description}\n\nKey Points:\n${detail.keyPoints.map(point => '• ' + point).join('\n')}`);
+        if (detail && window.modalManager) {
+            const content = window.modalManager.createTimelineContent(detail);
+            window.modalManager.show(detail.title, content);
         }
     }
 
@@ -502,8 +637,9 @@ class StandardsModule {
         };
         
         const detail = details[category];
-        if (detail) {
-            alert(`${detail.title}\n\n${detail.description}\n\nStandards:\n${detail.standards.map(std => '• ' + std).join('\n')}`);
+        if (detail && window.modalManager) {
+            const content = window.modalManager.createStandardsContent(detail);
+            window.modalManager.show(detail.title, content);
         }
     }
 
@@ -562,22 +698,9 @@ Method: Any method`,
         };
         
         const example = examples[standard];
-        if (example) {
-            const codeExample = document.getElementById('codeExample');
-            codeExample.innerHTML = `
-                <h4>${example.title}</h4>
-                <pre><code>${example.code}</code></pre>
-                <div class="code-explanation">
-                    <h5>${example.explanation.split('\n')[0]}</h5>
-                    <ul>
-                        ${example.explanation.split('\n').slice(1).map(line => `<li>${line.replace('• ', '')}</li>`).join('')}
-                    </ul>
-                </div>
-            `;
-            
-            // Update active button
-            document.querySelectorAll('.code-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+        if (example && window.modalManager) {
+            const content = window.modalManager.createCodeContent(example);
+            window.modalManager.show(example.title, content);
         }
     }
 }
@@ -660,7 +783,7 @@ function checkScenariosCompletion() {
 }
 
 function checkMasterCompletion() {
-    const masterQuizzes = document.querySelectorAll('#master-content .quiz-question');
+    const masterQuizzes = document.querySelectorAll('#masterQuizContainer .quiz-question');
     let answeredCount = 0;
     
     masterQuizzes.forEach(quiz => {
@@ -670,8 +793,14 @@ function checkMasterCompletion() {
         }
     });
     
+    console.log(`Master Challenge: ${answeredCount}/${masterQuizzes.length} questions answered`);
+    
     if (answeredCount >= masterQuizzes.length) {
-        document.getElementById('completeMaster').style.display = 'block';
+        const completeButton = document.getElementById('completeMaster');
+        if (completeButton) {
+            completeButton.style.display = 'block';
+            console.log('Master Challenge completion button shown');
+        }
     }
 }
 
@@ -787,6 +916,7 @@ let studentProgress;
 let quizManager;
 let achievementManager;
 let moduleManager;
+let modalManager;
 let clinicalScenarios;
 let masterChallenge;
 
@@ -812,6 +942,10 @@ function init() {
     achievementManager = new AchievementManager(studentProgress);
     moduleManager = new ModuleManager(studentProgress, achievementManager);
     quizManager = new QuizManager(studentProgress);
+    modalManager = new ModalManager();
+    
+    // Make modal manager globally accessible
+    window.modalManager = modalManager;
     
     // Initialize scenario modules
     window.clinicalScenarios = new ClinicalScenariosModule(studentProgress, achievementManager);
