@@ -643,7 +643,7 @@ class StandardsModule {
         }
     }
 
-    static showCodeExample(standard) {
+    static showCodeExample(standard, buttonElement) {
         const examples = {
             'hl7v2': {
                 title: 'HL7 v2 Message Example',
@@ -698,9 +698,35 @@ Method: Any method`,
         };
         
         const example = examples[standard];
-        if (example && window.modalManager) {
-            const content = window.modalManager.createCodeContent(example);
-            window.modalManager.show(example.title, content);
+        if (example) {
+            // Update button states
+            document.querySelectorAll('.code-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            buttonElement.classList.add('active');
+            
+            // Update the code example content inline
+            const codeExampleDiv = document.getElementById('codeExample');
+            if (codeExampleDiv) {
+                codeExampleDiv.innerHTML = `
+                    <h4>${example.title}</h4>
+                    <pre><code>${example.code}</code></pre>
+                    <div class="code-explanation">
+                        <h5>Explanation:</h5>
+                        <ul>
+                            ${example.explanation.split('\n').map(line => 
+                                line.startsWith('•') ? `<li>${line.substring(2)}</li>` : ''
+                            ).filter(line => line).join('')}
+                        </ul>
+                    </div>
+                `;
+                
+                // Add fade-in animation
+                codeExampleDiv.classList.add('fade-in');
+                setTimeout(() => {
+                    codeExampleDiv.classList.remove('fade-in');
+                }, 500);
+            }
         }
     }
 }
